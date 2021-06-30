@@ -79,6 +79,9 @@ type Settings struct {
 	MemcacheMaxIdleConns int           `envconfig:"MEMCACHE_MAX_IDLE_CONNS" default:"2"`
 	MemcacheSrv          string        `envconfig:"MEMCACHE_SRV" default:""`
 	MemcacheSrvRefresh   time.Duration `envconfig:"MEMCACHE_SRV_REFRESH" default:"0"`
+
+	// Memory setting
+	MemoryCacheSizeInBytes int `envconfig:"MEMORY_CACHE_SIZE_IN_BYTES" default:"0"`
 }
 
 type Option func(*Settings)

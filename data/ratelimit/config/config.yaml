@@ -1,0 +1,7 @@
+domain: mongo_cps
+descriptors:
+  - key: database
+    value: users
+    rate_limit:
+      unit: minute
+      requests_per_unit: 5
