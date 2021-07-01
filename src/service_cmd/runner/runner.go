@@ -68,7 +68,13 @@ func createLimiter(srv server.Server, s settings.Settings, localCache *freecache
 			srv.Scope(),
 			statsManager)
 	case "memory":
-		return memory.NewRateLimiterCacheImplFromSettings(s)
+		return memory.NewRateLimiterCacheImplFromSettings(
+			s,
+			utils.NewTimeSourceImpl(),
+			rand.New(utils.NewLockedSource(time.Now().Unix())),
+			localCache,
+			srv.Scope(),
+			statsManager)
 	default:
 		logger.Fatalf("Invalid setting for BackendType: %s", s.BackendType)
 		panic("This line should not be reachable")

@@ -17,6 +17,7 @@ require (
 	github.com/lyft/goruntime v0.2.5
 	github.com/lyft/gostats v0.4.0
 	github.com/mediocregopher/radix/v3 v3.5.1
+	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/sirupsen/logrus v1.6.0
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.5.1

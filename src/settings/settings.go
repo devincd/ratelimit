@@ -81,7 +81,8 @@ type Settings struct {
 	MemcacheSrvRefresh   time.Duration `envconfig:"MEMCACHE_SRV_REFRESH" default:"0"`
 
 	// Memory setting
-	MemoryCacheSizeInBytes int `envconfig:"MEMORY_CACHE_SIZE_IN_BYTES" default:"0"`
+	MemoryCacheDefaultExpiration time.Duration `envconfig:"MEMORY_CACHE_DEFAULT_EXPIRATION" default:"5s"`
+	MemoryCacheCleanupInterval   time.Duration `envconfig:"MEMORY_CACHE_CLEANUP_INTERVAL" default:"5m"`
 }
 
 type Option func(*Settings)
