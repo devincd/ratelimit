@@ -14,7 +14,6 @@ import (
 	"github.com/envoyproxy/ratelimit/src/settings"
 	"github.com/envoyproxy/ratelimit/src/stats"
 	"github.com/envoyproxy/ratelimit/src/utils"
-	gostats "github.com/lyft/gostats"
 	"github.com/patrickmn/go-cache"
 	logger "github.com/sirupsen/logrus"
 )
@@ -31,7 +30,6 @@ type rateLimitMemoryImpl struct {
 	timeSource                 utils.TimeSource
 	jitterRand                 *rand.Rand
 	expirationJitterMaxSeconds int64
-	localCache                 *freecache.Cache
 	waitGroup                  sync.WaitGroup
 	nearLimitRatio             float32
 	baseRateLimiter            *limiter.BaseRateLimiter
@@ -126,14 +124,13 @@ func NewRateLimitCacheImpl(memoryCache *cache.Cache, timeSource utils.TimeSource
 		timeSource:                 timeSource,
 		jitterRand:                 jitterRand,
 		expirationJitterMaxSeconds: expirationJitterMaxSeconds,
-		localCache:                 localCache,
 		nearLimitRatio:             nearLimitRatio,
 		baseRateLimiter:            limiter.NewBaseRateLimit(timeSource, jitterRand, expirationJitterMaxSeconds, localCache, nearLimitRatio, cacheKeyPrefix, statsManager),
 	}
 }
 
 func NewRateLimiterCacheImplFromSettings(s settings.Settings, timeSource utils.TimeSource, jitterRand *rand.Rand,
-	localCache *freecache.Cache, scope gostats.Scope, statsManager stats.Manager) limiter.RateLimitCache {
+	localCache *freecache.Cache, statsManager stats.Manager) limiter.RateLimitCache {
 	return NewRateLimitCacheImpl(
 		newMemoryCacheFromSettings(s),
 		timeSource,
